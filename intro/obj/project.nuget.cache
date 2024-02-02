@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "oR8ckFA/JO34wMJQ4nJ/kOmlp55ciDYYrknYvOhoT1Llk26xfg05QLoTbeWIJEBMt6Mbrgv2/iCwiTKRIQPhDg==",
+  "success": true,
+  "projectFilePath": "C:\\Programming\\fsharp\\intro\\intro.fsproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Capta\\.nuget\\packages\\fsharp.core\\7.0.300\\fsharp.core.7.0.300.nupkg.sha512"
+  ],
+  "logs": []
+}
