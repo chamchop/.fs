@@ -1,61 +1,6 @@
 ﻿open System
 open System.IO
-
-module Float =
-
-    let tryFromString s =
-        if s = "N/A" then
-            None
-        else
-            Some (float s)
-
-    let fromStringOr d s =
-        s 
-        |> tryFromString
-        |> Option.defaultValue d
-
-type Student = 
-    {
-        Name: string
-        Id: string
-        MeanScore: float
-        MinScore: float
-        MaxScore: float
-    }
-
-module Student = 
-
-    let fromString (s : string) = 
-        let elements = s.Split('\t')
-        let name = elements.[0]
-        let id = elements.[1]
-        let scores = 
-            elements
-            |> Array.skip 2
-            |> Array.map (Float.fromStringOr 50.0)
-        let meanScore = scores |> Array.average
-        let minScore = scores |> Array.min
-        let maxScore = scores |> Array.max
-        {
-            Name = name
-            Id = id
-            MeanScore = meanScore
-            MinScore = minScore
-            MaxScore = maxScore
-        }
-
-    let printSummary (student : Student) =
-        printfn "%s\t%s\t%0.1f\t%0.1f\t%0.1f" student.Name student.Id student.MeanScore student.MinScore student.MaxScore
-
-let summarise filePath =
-    let rows = File.ReadAllLines filePath
-    let studentCount = (rows |> Array.length) - 1
-    printfn "student count %i" studentCount
-    rows
-    |> Array.skip 1
-    |> Array.map Student.fromString
-    |> Array.sortBy (fun student -> student.Name)
-    |> Array.iter Student.printSummary
+open StudentScores
 
 [<EntryPoint>]
 let main argv = 
@@ -63,7 +8,7 @@ let main argv =
         let filePath = argv.[0]
         if File.Exists filePath then        
             printfn "processing %s" filePath
-            summarise filePath
+            Summary.summarise filePath
             0
         else
             printfn "File not found: %s" filePath
