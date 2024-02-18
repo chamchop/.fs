@@ -8,11 +8,24 @@ let main argv =
         let filePath = argv.[0]
         if File.Exists filePath then        
             printfn "processing %s" filePath
-            Summary.summarise filePath
-            0
+            try            
+                Summary.summarise filePath
+                0
+            with
+            | :? FormatException as e ->
+                printfn "error: %s" e.Message
+                printfn "incorrect format"
+                1
+            | :? IOException as e ->
+                printfn "error: %s" e.Message
+                printfn "file open in other program"
+                2
+            | _ as e ->
+                printfn "unexpected error: %s" e.Message
+                3
         else
             printfn "File not found: %s" filePath
-            2
+            4
     else
         printfn "Please specify a file"
-        1
+        5

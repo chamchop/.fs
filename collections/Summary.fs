@@ -11,5 +11,5 @@ module Summary =
         rows
         |> Array.skip 1
         |> Array.map Student.fromString
-        |> Array.sortBy (fun student -> student.GivenName)
+        |> Array.sortBy (fun student -> student.Surname)
         |> Array.iter Student.printSummary
